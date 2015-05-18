@@ -7,7 +7,7 @@ namespace Feerax.Engine.Entities
     internal class Bullet : Entity
     {
         public static Texture2D BulletTexture = Feerax.Instance.Content.Load<Texture2D>("Game/Lasers/laserBlue01Flipped");
-        public static int Speed = 100;
+        public static int Speed = 1000;
         public Vector2 Velocity;
 
         public Bullet(Texture2D texture) : base(texture)
@@ -16,6 +16,7 @@ namespace Feerax.Engine.Entities
 
         public Bullet(Texture2D texture, SpriteBatch spriteBatch) : base(texture, spriteBatch)
         {
+            Position = Vector2.One;
         }
 
         public override string Name { get; } = "Bullet";
@@ -23,17 +24,20 @@ namespace Feerax.Engine.Entities
         public Vector2 Point { get; set; }
 
         public override bool IsValid
-            => Position.Y < -30 || Position.X < -30 || Position.X > Feerax.Instance.GraphicsDevice.Viewport.Width;
+            =>
+                new Rectangle(0, 0, Feerax.Instance.GraphicsDevice.Viewport.Width,
+                    Feerax.Instance.GraphicsDevice.Viewport.Height).Contains(Bounds);
 
         public void Initialize()
         {
+            Position = Start;
             Velocity = -(Start - Point);
             Velocity.Normalize();
         }
 
         public override void Update(GameTime gameTime)
         {
-            Position += Velocity * Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+            Position += Velocity*Speed*(float) gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public override void Draw(GameTime gameTime)

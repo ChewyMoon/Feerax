@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Feerax.Engine;
 using Feerax.Engine.Entities;
 using Feerax.Engine.Entities.Blocks;
@@ -10,9 +9,9 @@ namespace Feerax.Screens
 {
     internal class GameScene : GameScreen
     {
-        public Player Player;
-        public Map Map;
         public SpriteFont font;
+        public Map Map;
+        public Player Player;
 
         public GameScene(Feerax game, Map map) : base(game)
         {
@@ -27,7 +26,10 @@ namespace Feerax.Screens
             {
                 ScaleY = 0.5f,
                 ScaleX = 0.5f,
-                Position = new Vector2(20, (Grass.GrassTexture.GraphicsDevice.Viewport.Height - (Grass.GrassTexture.Height * Grass.Scale)) - playerTexture.Height*0.5f)
+                Position =
+                    new Vector2(20,
+                        (Grass.GrassTexture.GraphicsDevice.Viewport.Height - (Grass.GrassTexture.Height*Grass.Scale)) -
+                        playerTexture.Height*0.5f)
             };
 
             font = Content.Load<SpriteFont>("Game/Fonts/Default");
