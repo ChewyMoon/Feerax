@@ -1,5 +1,6 @@
 ﻿using System;
 using Feerax.Engine;
+using Feerax.Engine.Maps;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -35,7 +36,7 @@ namespace Feerax.Screens
         {
             if (_play.Bounds.Contains(Mouse.GetState().Position) && Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                ScreenManager.To(new GameScene(Game));
+                ScreenManager.To(new GameScene(Game, new Xareef()));
             }
         }
 

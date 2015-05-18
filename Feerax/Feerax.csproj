@@ -60,11 +60,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Engine\Entities\Direction.cs" />
+    <Compile Include="Engine\Direction.cs" />
+    <Compile Include="Engine\Entities\Blocks\Block.cs" />
+    <Compile Include="Engine\Entities\Blocks\Grass.cs" />
+    <Compile Include="Engine\Entities\Bullet.cs" />
     <Compile Include="Engine\Entities\Entity.cs" />
     <Compile Include="Engine\Entities\Player.cs" />
     <Compile Include="Engine\GameScreen.cs" />
     <Compile Include="Engine\Map.cs" />
+    <Compile Include="Engine\Maps\Xareef.cs" />
     <Compile Include="Engine\ScreenManager.cs" />
     <Compile Include="Engine\Sprite.cs" />
     <Compile Include="Extensions\Texture2DExtensions.cs" />
@@ -87,9 +91,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engine\Maps\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,16 +8,18 @@ namespace Feerax.Engine.Entities
 {
     internal class Player : Entity
     {
+        public static Player Instance;
         public static int MoveSpeed = 200;
-        public static int JumpHeight = 100;
-        public static float Gravity = 300;
         private readonly Texture2D _front;
         private readonly Texture2D _walk1;
         private readonly Texture2D _walk2;
-        private KeyboardState _lastState = Keyboard.GetState();
         public int AnimationTime = 150;
         public int LastAnimationT = Environment.TickCount;
         public Vector2 Velocity = Vector2.Zero;
+
+        public override List<Entity> SubEntities { get; set; } = new List<Entity>();
+
+        public override string Name { get; } = "Player";
 
         public Player(Texture2D walk1, Texture2D walk2, Texture2D front, SpriteBatch spriteBatch)
             : base(walk1, spriteBatch)
@@ -24,6 +27,7 @@ namespace Feerax.Engine.Entities
             _walk1 = walk1;
             _walk2 = walk2;
             _front = front;
+            Instance = this;
         }
 
         public Player(Texture2D texture) : base(texture)
@@ -43,11 +47,17 @@ namespace Feerax.Engine.Entities
 
             Position += Velocity;
 
-            Console.WriteLine("{0} | {1}", Environment.TickCount, LastAnimationT);
-
             // Jump
             if (state.IsKeyDown(Keys.Space) || state.IsKeyDown(Keys.W))
             {
+            }
+
+            // Fire missile
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                var bullet = new Bullet(Bullet.BulletTexture, SpriteBatch) {Point = Mouse.GetState().Position.ToVector2(), Start = Vector2.Zero};
+                bullet.Initialize();
+                SubEntities.Add(bullet);
             }
 
             // Right
@@ -83,13 +93,30 @@ namespace Feerax.Engine.Entities
                 Texture = _front;
             }
 
-            _lastState = state;
+            // Update sub entities
+            foreach (var entity in SubEntities)
+            {
+                entity.Update(gameTime);
+            }
+
+            // Remove invalids
+           // SubEntities.RemoveAll(x => !x.IsValid);
+
+            Console.WriteLine(SubEntities.Count);
         }
 
         public override void Draw(GameTime gameTime)
         {
+            
             SpriteBatch.Draw(Texture, Position, null, Color.White, 0, Vector2.Zero, new Vector2(ScaleX, ScaleY),
                 (Direction == Direction.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None), 0);
+                // Draw sub entities
+                SpriteBatch.Draw(Bullet.BulletTexture, Bounds.Center.ToVector2());
+            foreach (var entity in SubEntities)
+            {
+                entity.Draw(gameTime);
+            }
+
         }
     }
 }

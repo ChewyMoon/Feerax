@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Feerax.Engine.Entities
@@ -14,8 +15,9 @@ namespace Feerax.Engine.Entities
         }
 
         public virtual string Name => "Unnamed Entity";
-
         public virtual Direction Direction { get; internal set; }
+        public virtual List<Entity> SubEntities { get; set; } = new List<Entity>(0);
+        public virtual bool IsValid { get; } = true;
 
         public virtual void Draw(GameTime gameTime)
         {

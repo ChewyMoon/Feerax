@@ -11,6 +11,7 @@ namespace Feerax
     /// </summary>
     public class Feerax : Game
     {
+        public static Feerax Instance;
         private GraphicsDeviceManager graphics;
         public SpriteBatch SpriteBatch;
 
@@ -23,6 +24,8 @@ namespace Feerax
             };
 
             Content.RootDirectory = "Content";
+
+            Instance = this;
         }
 
         protected override void Initialize()
