@@ -1,9 +1,22 @@
-﻿using System;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="" file="ScreenManager.cs">
+//   
+// </copyright>
+// <summary>
+//   The screen manager.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace Feerax.Engine
 {
+    using System;
+
+    /// <summary>
+    ///     The screen manager.
+    /// </summary>
     internal class ScreenManager
     {
+        #region Public Properties
+
         /// <summary>
         ///     Gets the active screen.
         /// </summary>
@@ -11,6 +24,10 @@ namespace Feerax.Engine
         ///     The active screen.
         /// </value>
         public static GameScreen ActiveScreen { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Switches to the specified screen.
@@ -29,5 +46,7 @@ namespace Feerax.Engine
             // Collect garbage
             GC.Collect();
         }
+
+        #endregion
     }
 }

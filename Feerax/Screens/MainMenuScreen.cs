@@ -1,44 +1,55 @@
-﻿using System;
-using Feerax.Engine;
-using Feerax.Engine.Maps;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="" file="MainMenuScreen.cs">
+//   
+// </copyright>
+// <summary>
+//   The main menu screen.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace Feerax.Screens
 {
+    using System;
+
+    using global::Feerax.Engine;
+    using global::Feerax.Engine.Maps;
+
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+
+    /// <summary>
+    ///     The main menu screen.
+    /// </summary>
     internal class MainMenuScreen : GameScreen
     {
+        #region Fields
+
+        /// <summary>
+        ///     The logo.
+        /// </summary>
         private Sprite _logo;
+
+        /// <summary>
+        ///     The play.
+        /// </summary>
         private Sprite _play;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="MainMenuScreen" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
-        public MainMenuScreen(Feerax game) : base(game)
+        public MainMenuScreen(Feerax game)
+            : base(game)
         {
         }
 
-        /// <summary>
-        ///     Loads the content.
-        /// </summary>
-        public override void LoadContent()
-        {
-            _logo = new Sprite(Content.Load<Texture2D>("Main Menu/logo"), SpriteBatch);
-            _logo.Position = new Vector2(_logo.Center.X, 50);
+        #endregion
 
-            _play = new Sprite(Content.Load<Texture2D>("Main Menu/play"), SpriteBatch);
-            _play.Position = _play.Center;
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if (_play.Bounds.Contains(Mouse.GetState().Position) && Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                ScreenManager.To(new GameScene(Game, new Xareef()));
-            }
-        }
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Draws the game.
@@ -52,10 +63,37 @@ namespace Feerax.Screens
         /// </exception>
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Begin();
-            _logo.Draw();
-            _play.Draw();
-            SpriteBatch.End();
+            this.SpriteBatch.Begin();
+            this._logo.Draw();
+            this._play.Draw();
+            this.SpriteBatch.End();
         }
+
+        /// <summary>
+        ///     Loads the content.
+        /// </summary>
+        public override void LoadContent()
+        {
+            this._logo = new Sprite(this.Content.Load<Texture2D>("Main Menu/logo"), this.SpriteBatch);
+            this._logo.Position = new Vector2(this._logo.Center.X, 50);
+
+            this._play = new Sprite(this.Content.Load<Texture2D>("Main Menu/play"), this.SpriteBatch);
+            this._play.Position = this._play.Center;
+        }
+
+        /// <summary>
+        ///     Updates the game.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
+        public override void Update(GameTime gameTime)
+        {
+            if (this._play.Bounds.Contains(Mouse.GetState().Position)
+                && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                ScreenManager.To(new GameScene(this.Game, new Xareef()));
+            }
+        }
+
+        #endregion
     }
 }
